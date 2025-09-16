@@ -1,0 +1,533 @@
+--- Executing on Slurm Node: sdumont2nd3003 ---
+
+available: 36 nodes (0-35)
+node 0 cpus: 0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71
+node 0 size: 120953 MB
+node 0 free: 111697 MB
+node 1 cpus: 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 128 129 130 131 132 133 134 135 136 137 138 139 140 141 142 143
+node 1 size: 122590 MB
+node 1 free: 115569 MB
+node 2 cpus: 144 145 146 147 148 149 150 151 152 153 154 155 156 157 158 159 160 161 162 163 164 165 166 167 168 169 170 171 172 173 174 175 176 177 178 179 180 181 182 183 184 185 186 187 188 189 190 191 192 193 194 195 196 197 198 199 200 201 202 203 204 205 206 207 208 209 210 211 212 213 214 215
+node 2 size: 122632 MB
+node 2 free: 116330 MB
+node 3 cpus: 216 217 218 219 220 221 222 223 224 225 226 227 228 229 230 231 232 233 234 235 236 237 238 239 240 241 242 243 244 245 246 247 248 249 250 251 252 253 254 255 256 257 258 259 260 261 262 263 264 265 266 267 268 269 270 271 272 273 274 275 276 277 278 279 280 281 282 283 284 285 286 287
+node 3 size: 122518 MB
+node 3 free: 114370 MB
+node 4 cpus:
+node 4 size: 97280 MB
+node 4 free: 97262 MB
+node 5 cpus:
+node 5 size: 0 MB
+node 5 free: 0 MB
+node 6 cpus:
+node 6 size: 0 MB
+node 6 free: 0 MB
+node 7 cpus:
+node 7 size: 0 MB
+node 7 free: 0 MB
+node 8 cpus:
+node 8 size: 0 MB
+node 8 free: 0 MB
+node 9 cpus:
+node 9 size: 0 MB
+node 9 free: 0 MB
+node 10 cpus:
+node 10 size: 0 MB
+node 10 free: 0 MB
+node 11 cpus:
+node 11 size: 0 MB
+node 11 free: 0 MB
+node 12 cpus:
+node 12 size: 97280 MB
+node 12 free: 97234 MB
+node 13 cpus:
+node 13 size: 0 MB
+node 13 free: 0 MB
+node 14 cpus:
+node 14 size: 0 MB
+node 14 free: 0 MB
+node 15 cpus:
+node 15 size: 0 MB
+node 15 free: 0 MB
+node 16 cpus:
+node 16 size: 0 MB
+node 16 free: 0 MB
+node 17 cpus:
+node 17 size: 0 MB
+node 17 free: 0 MB
+node 18 cpus:
+node 18 size: 0 MB
+node 18 free: 0 MB
+node 19 cpus:
+node 19 size: 0 MB
+node 19 free: 0 MB
+node 20 cpus:
+node 20 size: 97280 MB
+node 20 free: 97235 MB
+node 21 cpus:
+node 21 size: 0 MB
+node 21 free: 0 MB
+node 22 cpus:
+node 22 size: 0 MB
+node 22 free: 0 MB
+node 23 cpus:
+node 23 size: 0 MB
+node 23 free: 0 MB
+node 24 cpus:
+node 24 size: 0 MB
+node 24 free: 0 MB
+node 25 cpus:
+node 25 size: 0 MB
+node 25 free: 0 MB
+node 26 cpus:
+node 26 size: 0 MB
+node 26 free: 0 MB
+node 27 cpus:
+node 27 size: 0 MB
+node 27 free: 0 MB
+node 28 cpus:
+node 28 size: 97280 MB
+node 28 free: 97232 MB
+node 29 cpus:
+node 29 size: 0 MB
+node 29 free: 0 MB
+node 30 cpus:
+node 30 size: 0 MB
+node 30 free: 0 MB
+node 31 cpus:
+node 31 size: 0 MB
+node 31 free: 0 MB
+node 32 cpus:
+node 32 size: 0 MB
+node 32 free: 0 MB
+node 33 cpus:
+node 33 size: 0 MB
+node 33 free: 0 MB
+node 34 cpus:
+node 34 size: 0 MB
+node 34 free: 0 MB
+node 35 cpus:
+node 35 size: 0 MB
+node 35 free: 0 MB
+node distances:
+node   0   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35 
+  0:  10  40  40  40  80  80  80  80  80  80  80  80  120  120  120  120  120  120  120  120  120  120  120  120  120  120  120  120  120  120  120  120  120  120  120  120 
+  1:  40  10  40  40  120  120  120  120  120  120  120  120  80  80  80  80  80  80  80  80  120  120  120  120  120  120  120  120  120  120  120  120  120  120  120  120 
+  2:  40  40  10  40  120  120  120  120  120  120  120  120  120  120  120  120  120  120  120  120  80  80  80  80  80  80  80  80  120  120  120  120  120  120  120  120 
+  3:  40  40  40  10  120  120  120  120  120  120  120  120  120  120  120  120  120  120  120  120  120  120  120  120  120  120  120  120  80  80  80  80  80  80  80  80 
+  4:  80  120  120  120  10  11  11  11  11  11  11  11  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40 
+  5:  80  120  120  120  11  10  11  11  11  11  11  11  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40 
+  6:  80  120  120  120  11  11  10  11  11  11  11  11  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40 
+  7:  80  120  120  120  11  11  11  10  11  11  11  11  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40 
+  8:  80  120  120  120  11  11  11  11  10  11  11  11  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40 
+  9:  80  120  120  120  11  11  11  11  11  10  11  11  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40 
+ 10:  80  120  120  120  11  11  11  11  11  11  10  11  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40 
+ 11:  80  120  120  120  11  11  11  11  11  11  11  10  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40 
+ 12:  120  80  120  120  40  40  40  40  40  40  40  40  10  11  11  11  11  11  11  11  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40 
+ 13:  120  80  120  120  40  40  40  40  40  40  40  40  11  10  11  11  11  11  11  11  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40 
+ 14:  120  80  120  120  40  40  40  40  40  40  40  40  11  11  10  11  11  11  11  11  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40 
+ 15:  120  80  120  120  40  40  40  40  40  40  40  40  11  11  11  10  11  11  11  11  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40 
+ 16:  120  80  120  120  40  40  40  40  40  40  40  40  11  11  11  11  10  11  11  11  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40 
+ 17:  120  80  120  120  40  40  40  40  40  40  40  40  11  11  11  11  11  10  11  11  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40 
+ 18:  120  80  120  120  40  40  40  40  40  40  40  40  11  11  11  11  11  11  10  11  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40 
+ 19:  120  80  120  120  40  40  40  40  40  40  40  40  11  11  11  11  11  11  11  10  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40 
+ 20:  120  120  80  120  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  10  11  11  11  11  11  11  11  40  40  40  40  40  40  40  40 
+ 21:  120  120  80  120  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  11  10  11  11  11  11  11  11  40  40  40  40  40  40  40  40 
+ 22:  120  120  80  120  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  11  11  10  11  11  11  11  11  40  40  40  40  40  40  40  40 
+ 23:  120  120  80  120  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  11  11  11  10  11  11  11  11  40  40  40  40  40  40  40  40 
+ 24:  120  120  80  120  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  11  11  11  11  10  11  11  11  40  40  40  40  40  40  40  40 
+ 25:  120  120  80  120  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  11  11  11  11  11  10  11  11  40  40  40  40  40  40  40  40 
+ 26:  120  120  80  120  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  11  11  11  11  11  11  10  11  40  40  40  40  40  40  40  40 
+ 27:  120  120  80  120  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  11  11  11  11  11  11  11  10  40  40  40  40  40  40  40  40 
+ 28:  120  120  120  80  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  10  11  11  11  11  11  11  11 
+ 29:  120  120  120  80  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  11  10  11  11  11  11  11  11 
+ 30:  120  120  120  80  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  11  11  10  11  11  11  11  11 
+ 31:  120  120  120  80  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  11  11  11  10  11  11  11  11 
+ 32:  120  120  120  80  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  11  11  11  11  10  11  11  11 
+ 33:  120  120  120  80  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  11  11  11  11  11  10  11  11 
+ 34:  120  120  120  80  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  11  11  11  11  11  11  10  11 
+ 35:  120  120  120  80  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  40  11  11  11  11  11  11  11  10 
+
+--- My Assigned CPU/NUMA Node (PINNED to 1) ---
+policy: bind
+preferred node: 1
+physcpubind: 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 128 129 130 131 132 133 134 135 136 137 138 139 140 141 142 143 
+cpubind: 1 
+nodebind: 1 
+membind: 1 
+preferred: 1 
+
+--- My Assigned GPU PCI ID ---
+00000009:01:00.0
+00000019:01:00.0
+00000029:01:00.0
+00000039:01:00.0
+
+--- GPU Topology ---
+	[4mGPU0	GPU1	GPU2	GPU3	NIC0	NIC1	NIC2	NIC3	CPU Affinity	NUMA Affinity	GPU NUMA ID[0m
+GPU0	 X 	NV6	NV6	NV6	NODE	SYS	SYS	SYS	0-71	0		4
+GPU1	NV6	 X 	NV6	NV6	SYS	NODE	SYS	SYS	72-143	1		12
+GPU2	NV6	NV6	 X 	NV6	SYS	SYS	NODE	SYS	144-215	2		20
+GPU3	NV6	NV6	NV6	 X 	SYS	SYS	SYS	NODE	216-287	3		28
+NIC0	NODE	SYS	SYS	SYS	 X 	SYS	SYS	SYS				
+NIC1	SYS	NODE	SYS	SYS	SYS	 X 	SYS	SYS				
+NIC2	SYS	SYS	NODE	SYS	SYS	SYS	 X 	SYS				
+NIC3	SYS	SYS	SYS	NODE	SYS	SYS	SYS	 X 				
+
+Legend:
+
+  X    = Self
+  SYS  = Connection traversing PCIe as well as the SMP interconnect between NUMA nodes (e.g., QPI/UPI)
+  NODE = Connection traversing PCIe as well as the interconnect between PCIe Host Bridges within a NUMA node
+  PHB  = Connection traversing PCIe as well as a PCIe Host Bridge (typically the CPU)
+  PXB  = Connection traversing multiple PCIe bridges (without traversing the PCIe Host Bridge)
+  PIX  = Connection traversing at most a single PCIe bridge
+  NV#  = Connection traversing a bonded set of # NVLinks
+
+NIC Legend:
+
+  NIC0: mlx5_0
+  NIC1: mlx5_1
+  NIC2: mlx5_2
+  NIC3: mlx5_3
+
+
+--- Running nvbandwidth Benchmark ---
+nvbandwidth Version: v0.6
+Built from Git version: v0.6
+
+CUDA Runtime Version: 12060
+CUDA Driver Version: 12060
+Driver Version: 560.35.03
+
+Device 0: NVIDIA GH200 120GB (00000009:01:00)
+Device 1: NVIDIA GH200 120GB (00000019:01:00)
+Device 2: NVIDIA GH200 120GB (00000029:01:00)
+Device 3: NVIDIA GH200 120GB (00000039:01:00)
+
+Running host_to_device_memcpy_ce.
+memcpy CE CPU(row) -> GPU(column) bandwidth (GB/s)
+           0         1         2         3
+ 0     88.57    412.34     88.58     88.59
+
+SUM host_to_device_memcpy_ce 678.08
+
+Running device_to_host_memcpy_ce.
+memcpy CE CPU(row) <- GPU(column) bandwidth (GB/s)
+           0         1         2         3
+ 0     88.20    169.49     88.24     88.22
+
+SUM device_to_host_memcpy_ce 434.16
+
+Running host_to_device_bidirectional_memcpy_ce.
+memcpy CE CPU(row) <-> GPU(column) bandwidth (GB/s)
+           0         1         2         3
+ 0     82.29    334.19     82.35     82.33
+
+SUM host_to_device_bidirectional_memcpy_ce 581.16
+
+Running device_to_host_bidirectional_memcpy_ce.
+memcpy CE CPU(row) <-> GPU(column) bandwidth (GB/s)
+           0         1         2         3
+ 0     79.70    148.66     79.79     79.97
+
+SUM device_to_host_bidirectional_memcpy_ce 388.12
+
+Running device_to_device_memcpy_read_ce.
+memcpy CE GPU(row) -> GPU(column) bandwidth (GB/s)
+           0         1         2         3
+ 0       N/A    130.99    130.59    130.59
+ 1    130.59       N/A    130.29    130.29
+ 2    130.15    130.74       N/A    124.59
+ 3    124.30    124.72    124.30       N/A
+
+SUM device_to_device_memcpy_read_ce 1542.17
+
+Running device_to_device_memcpy_write_ce.
+memcpy CE GPU(row) <- GPU(column) bandwidth (GB/s)
+           0         1         2         3
+ 0       N/A    132.69    132.66    132.50
+ 1    132.76       N/A    132.74    132.59
+ 2    132.76    132.71       N/A    132.59
+ 3    132.81    132.68    132.61       N/A
+
+SUM device_to_device_memcpy_write_ce 1592.09
+
+Running device_to_device_bidirectional_memcpy_read_ce.
+memcpy CE GPU(row) <-> GPU(column) Read1 bandwidth (GB/s)
+           0         1         2         3
+ 0       N/A    124.96    124.32    124.72
+ 1    124.46       N/A    129.44    129.44
+ 2    129.43    129.96       N/A    124.72
+ 3    124.29    124.72    124.32       N/A
+
+SUM device_to_device_bidirectional_memcpy_read_ce_read1 1514.79
+
+memcpy CE GPU(row) <-> GPU(column) Read2 bandwidth (GB/s)
+           0         1         2         3
+ 0       N/A    124.23    129.59    124.62
+ 1    125.12       N/A    130.01    124.62
+ 2    124.74    129.63       N/A    124.36
+ 3    124.46    129.62    124.98       N/A
+
+SUM device_to_device_bidirectional_memcpy_read_ce_read2 1515.98
+
+memcpy CE GPU(row) <-> GPU(column) Total bandwidth (GB/s)
+           0         1         2         3
+ 0       N/A    249.19    253.90    249.35
+ 1    249.58       N/A    259.45    254.07
+ 2    254.17    259.59       N/A    249.09
+ 3    248.75    254.34    249.30       N/A
+
+SUM device_to_device_bidirectional_memcpy_read_ce_total 3030.78
+
+Running device_to_device_bidirectional_memcpy_write_ce.
+memcpy CE GPU(row) <-> GPU(column) Write1 bandwidth (GB/s)
+           0         1         2         3
+ 0       N/A    132.07    132.06    132.06
+ 1    132.10       N/A    131.96    131.91
+ 2    131.89    131.94       N/A    131.91
+ 3    131.93    131.94    131.96       N/A
+
+SUM device_to_device_bidirectional_memcpy_write_ce_write1 1583.72
+
+memcpy CE GPU(row) <-> GPU(column) Write2 bandwidth (GB/s)
+           0         1         2         3
+ 0       N/A    132.09    131.94    131.94
+ 1    132.07       N/A    131.94    131.88
+ 2    131.89    131.93       N/A    131.96
+ 3    132.02    131.93    131.94       N/A
+
+SUM device_to_device_bidirectional_memcpy_write_ce_write2 1583.53
+
+memcpy CE GPU(row) <-> GPU(column) Total bandwidth (GB/s)
+           0         1         2         3
+ 0       N/A    264.16    264.00    264.00
+ 1    264.18       N/A    263.90    263.79
+ 2    263.79    263.87       N/A    263.87
+ 3    263.95    263.87    263.90       N/A
+
+SUM device_to_device_bidirectional_memcpy_write_ce_total 3167.25
+
+Running all_to_host_memcpy_ce.
+memcpy CE CPU(row) <- GPU(column) bandwidth (GB/s)
+           0         1         2         3
+ 0     85.18    166.78     85.27     85.24
+
+SUM all_to_host_memcpy_ce 422.48
+
+Running all_to_host_bidirectional_memcpy_ce.
+memcpy CE CPU(row) <-> GPU(column) bandwidth (GB/s)
+           0         1         2         3
+ 0     46.54    105.31     46.55     46.51
+
+SUM all_to_host_bidirectional_memcpy_ce 244.91
+
+Running host_to_all_memcpy_ce.
+memcpy CE CPU(row) -> GPU(column) bandwidth (GB/s)
+           0         1         2         3
+ 0     88.12    245.76     88.13     88.08
+
+SUM host_to_all_memcpy_ce 510.10
+
+Running host_to_all_bidirectional_memcpy_ce.
+memcpy CE CPU(row) <-> GPU(column) bandwidth (GB/s)
+           0         1         2         3
+ 0     55.00    148.43     54.96     55.04
+
+SUM host_to_all_bidirectional_memcpy_ce 313.43
+
+Running all_to_one_write_ce.
+memcpy CE GPU(row) <- GPU(column) bandwidth (GB/s)
+           0         1         2         3
+ 0    397.36    397.35    397.10    397.16
+
+SUM all_to_one_write_ce 1588.98
+
+Running all_to_one_read_ce.
+memcpy CE GPU(row) -> GPU(column) bandwidth (GB/s)
+           0         1         2         3
+ 0    111.54    112.13    111.85    111.84
+
+SUM all_to_one_read_ce 447.36
+
+Running one_to_all_write_ce.
+memcpy CE GPU(row) -> GPU(column) bandwidth (GB/s)
+           0         1         2         3
+ 0    390.46    390.46    390.87    390.11
+
+SUM one_to_all_write_ce 1561.89
+
+Running one_to_all_read_ce.
+memcpy CE GPU(row) <- GPU(column) bandwidth (GB/s)
+           0         1         2         3
+ 0    372.69    372.33    370.00    373.40
+
+SUM one_to_all_read_ce 1488.41
+
+Running host_to_device_memcpy_sm.
+memcpy SM CPU(row) -> GPU(column) bandwidth (GB/s)
+           0         1         2         3
+ 0     83.99    404.33     83.89     83.96
+
+SUM host_to_device_memcpy_sm 656.17
+
+Running device_to_host_memcpy_sm.
+memcpy SM CPU(row) <- GPU(column) bandwidth (GB/s)
+           0         1         2         3
+ 0     81.94    379.71     81.87     81.88
+
+SUM device_to_host_memcpy_sm 625.41
+
+Running device_to_device_memcpy_read_sm.
+memcpy SM GPU(row) -> GPU(column) bandwidth (GB/s)
+           0         1         2         3
+ 0       N/A    125.71    125.68    125.64
+ 1    125.64       N/A    125.70    125.64
+ 2    125.64    125.70       N/A    125.70
+ 3    125.64    125.70    125.68       N/A
+
+SUM device_to_device_memcpy_read_sm 1508.05
+
+Running device_to_device_memcpy_write_sm.
+memcpy SM GPU(row) <- GPU(column) bandwidth (GB/s)
+           0         1         2         3
+ 0       N/A    124.46    124.59    124.47
+ 1    124.43       N/A    124.51    124.34
+ 2    124.36    124.51       N/A    124.53
+ 3    124.43    124.49    124.53       N/A
+
+SUM device_to_device_memcpy_write_sm 1493.64
+
+Running device_to_device_bidirectional_memcpy_read_sm.
+memcpy SM GPU(row) <-> GPU(column) Read1 bandwidth (GB/s)
+           0         1         2         3
+ 0       N/A    113.17    113.12    113.15
+ 1    113.13       N/A    113.13    113.06
+ 2    113.12    113.18       N/A    113.14
+ 3    113.12    113.13    113.13       N/A
+
+SUM device_to_device_bidirectional_memcpy_read_sm_read1 1357.57
+
+memcpy SM GPU(row) <-> GPU(column) Read2 bandwidth (GB/s)
+           0         1         2         3
+ 0       N/A    113.11    113.07    113.09
+ 1    113.11       N/A    113.13    113.14
+ 2    113.11    113.14       N/A    113.17
+ 3    113.09    113.11    113.11       N/A
+
+SUM device_to_device_bidirectional_memcpy_read_sm_read2 1357.36
+
+memcpy SM GPU(row) <-> GPU(column) Total bandwidth (GB/s)
+           0         1         2         3
+ 0       N/A    226.27    226.19    226.25
+ 1    226.24       N/A    226.26    226.20
+ 2    226.22    226.32       N/A    226.31
+ 3    226.21    226.24    226.24       N/A
+
+SUM device_to_device_bidirectional_memcpy_read_sm_total 2714.93
+
+Running device_to_device_bidirectional_memcpy_write_sm.
+memcpy SM GPU(row) <-> GPU(column) Write1 bandwidth (GB/s)
+           0         1         2         3
+ 0       N/A    123.74    123.82    123.71
+ 1    123.70       N/A    123.74    123.81
+ 2    123.88    123.84       N/A    123.88
+ 3    123.72    123.80    123.80       N/A
+
+SUM device_to_device_bidirectional_memcpy_write_sm_write1 1485.44
+
+memcpy SM GPU(row) <-> GPU(column) Write2 bandwidth (GB/s)
+           0         1         2         3
+ 0       N/A    123.75    123.78    123.78
+ 1    123.82       N/A    123.74    123.82
+ 2    123.78    123.82       N/A    123.81
+ 3    123.71    123.80    123.74       N/A
+
+SUM device_to_device_bidirectional_memcpy_write_sm_write2 1485.37
+
+memcpy SM GPU(row) <-> GPU(column) Total bandwidth (GB/s)
+           0         1         2         3
+ 0       N/A    247.49    247.61    247.49
+ 1    247.52       N/A    247.48    247.64
+ 2    247.66    247.66       N/A    247.69
+ 3    247.44    247.59    247.54       N/A
+
+SUM device_to_device_bidirectional_memcpy_write_sm_total 2970.81
+
+Running all_to_host_memcpy_sm.
+memcpy SM CPU(row) <- GPU(column) bandwidth (GB/s)
+           0         1         2         3
+ 0     81.18    238.11     80.78     81.11
+
+SUM all_to_host_memcpy_sm 481.18
+
+Running all_to_host_bidirectional_memcpy_sm.
+memcpy SM CPU(row) <-> GPU(column) bandwidth (GB/s)
+           0         1         2         3
+ 0     50.49    152.61     51.21     51.12
+
+SUM all_to_host_bidirectional_memcpy_sm 305.43
+
+Running host_to_all_memcpy_sm.
+memcpy SM CPU(row) -> GPU(column) bandwidth (GB/s)
+           0         1         2         3
+ 0     67.25    179.62     67.04     68.01
+
+SUM host_to_all_memcpy_sm 381.93
+
+Running host_to_all_bidirectional_memcpy_sm.
+memcpy SM CPU(row) <-> GPU(column) bandwidth (GB/s)
+           0         1         2         3
+ 0     40.99    112.27     58.51     40.82
+
+SUM host_to_all_bidirectional_memcpy_sm 252.58
+
+Running all_to_one_write_sm.
+memcpy SM GPU(row) <- GPU(column) bandwidth (GB/s)
+           0         1         2         3
+ 0    372.68    372.54    372.67    372.31
+
+SUM all_to_one_write_sm 1490.20
+
+Running all_to_one_read_sm.
+memcpy SM GPU(row) -> GPU(column) bandwidth (GB/s)
+           0         1         2         3
+ 0    138.33    139.48    139.27    131.53
+
+SUM all_to_one_read_sm 548.61
+
+Running one_to_all_write_sm.
+memcpy SM GPU(row) -> GPU(column) bandwidth (GB/s)
+           0         1         2         3
+ 0    129.33    140.53    139.58    138.89
+
+SUM one_to_all_write_sm 548.33
+
+Running one_to_all_read_sm.
+memcpy SM GPU(row) <- GPU(column) bandwidth (GB/s)
+           0         1         2         3
+ 0    372.90    372.53    372.80    372.48
+
+SUM one_to_all_read_sm 1490.70
+
+Running host_device_latency_sm.
+memory latency SM CPU(row) <-> GPU(column) (ns)
+           0         1         2         3
+ 0   1113.62    736.95   1105.88   1110.41
+
+SUM host_device_latency_sm 4066.85
+
+Running device_to_device_latency_sm.
+Device to Device Latency SM GPU(row) <-> GPU(column) (ns)
+           0         1         2         3
+ 0       N/A   1104.20   1093.62   1095.18
+ 1    737.45       N/A    737.38    737.60
+ 2   1097.41   1096.98       N/A   1096.40
+ 3   1101.41   1101.00   1101.99       N/A
+
+SUM device_to_device_latency_sm 12100.62
+
+NOTE: The reported results may not reflect the full capabilities of the platform.
+Performance can vary with software drivers, hardware clocks, and system topology.
+
