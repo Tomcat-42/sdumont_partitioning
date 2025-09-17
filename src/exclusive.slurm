@@ -10,14 +10,12 @@ echo "--- Job Starting on $(hostname) ---"
 echo "Start time: $(date)"
 echo ""
 
-# Using a hardcoded list of NUMA nodes as in your example
 NUMA_NODES=(0 1 2 3)
 export CUDA_VISIBLE_DEVICES="0,1,2,3"
 
 for i in "${NUMA_NODES[@]}"; do
     echo "--- Launching benchmark for NUMA Node $i, output will be in exclusive_4gpu_node${i}.txt ---"
     
-    # Redirect stdout and stderr of this srun command to a unique file
     srun numactl --cpunodebind="$i" --membind="$i" bash -c '
      	echo "--- Executing on Slurm Node: $SLURM_JOB_NODELIST ---"; echo;
 	numactl --hardware; echo;
