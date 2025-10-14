@@ -27,6 +27,8 @@ function setup() {
     pushd "$BENCH_DIR" || exit
 }
 
+setup
+
 ${SINGULARITY} gmx mdrun \
     -ntmpi "$SLURMNTASKS" \
     -ntomp "$SLURM_CPUS_PER_TASK" \
