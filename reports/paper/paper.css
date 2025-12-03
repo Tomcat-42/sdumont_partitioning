@@ -1,0 +1,184 @@
+/* Academic Paper Style for Jupyter Notebook PDF Export */
+
+@page {
+    margin: 2cm 2.5cm;
+    size: A4;
+
+    @bottom-center {
+        content: counter(page);
+        font-family: "Times New Roman", Times, serif;
+        font-size: 10pt;
+    }
+}
+
+body {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 11pt;
+    line-height: 1.4;
+    text-align: justify;
+    color: #000;
+    background: #fff;
+}
+
+/* Title styling */
+h1 {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 16pt;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 0.5em;
+}
+
+/* Section headings */
+h2 {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 12pt;
+    font-weight: bold;
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    text-transform: uppercase;
+}
+
+h3 {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 11pt;
+    font-weight: bold;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+}
+
+h4 {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 11pt;
+    font-weight: bold;
+    font-style: italic;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+}
+
+/* Paragraphs */
+p {
+    margin-bottom: 0.8em;
+    text-indent: 0;
+}
+
+/* Abstract section */
+#Abstract, .abstract {
+    font-size: 10pt;
+    margin: 1em 2em;
+    padding: 0.5em;
+    background: #f9f9f9;
+    border-left: 3px solid #333;
+}
+
+/* Tables */
+table {
+    font-size: 10pt;
+    border-collapse: collapse;
+    margin: 1em auto;
+    width: auto;
+}
+
+th, td {
+    border: 1px solid #000;
+    padding: 0.4em 0.8em;
+    text-align: left;
+}
+
+th {
+    background-color: #f0f0f0;
+    font-weight: bold;
+}
+
+/* Code blocks */
+pre, code {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 9pt;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    padding: 0.5em;
+}
+
+/* Figures/Images */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 1em auto;
+}
+
+/* Figure captions */
+.caption, figcaption {
+    font-size: 10pt;
+    text-align: center;
+    font-style: italic;
+    margin-top: 0.5em;
+}
+
+/* Lists */
+ul, ol {
+    margin-left: 2em;
+    margin-bottom: 1em;
+}
+
+li {
+    margin-bottom: 0.3em;
+}
+
+/* Links */
+a {
+    color: #000;
+    text-decoration: none;
+}
+
+/* Hide Jupyter UI elements */
+.jp-Cell-inputWrapper,
+.jp-InputArea,
+.jp-InputPrompt,
+.jp-OutputPrompt,
+.celltoolbar,
+.prompt {
+    display: none !important;
+}
+
+/* Output area styling */
+.jp-OutputArea-output,
+.output_text,
+.output_stream {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 9pt;
+    background: #f8f8f8;
+    padding: 0.5em;
+    margin: 0.5em 0;
+    border: 1px solid #ddd;
+}
+
+/* Hide code input, show only output */
+.jp-Cell-inputWrapper {
+    display: none !important;
+}
+
+/* Horizontal rules */
+hr {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 1.5em 0;
+}
+
+/* Strong/Bold */
+strong, b {
+    font-weight: bold;
+}
+
+/* Emphasis/Italic */
+em, i {
+    font-style: italic;
+}
+
+/* Block quotes */
+blockquote {
+    margin: 1em 2em;
+    padding-left: 1em;
+    border-left: 3px solid #ccc;
+    font-style: italic;
+}
