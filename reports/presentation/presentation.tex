@@ -1,0 +1,195 @@
+\documentclass[aspectratio=169]{beamer}
+\usetheme{Madrid}
+\usecolortheme{default}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+
+\usecolortheme{beaver}
+
+\title[GPU Partitioning on SDumont II]{GPU Resource Partitioning on SDumont II}
+\subtitle{NUMA Locality Impact on CPU-GPU Bandwidth}
+\author{Pablo Alessandro Santos Hugen}
+\institute{Universidade Federal do Rio Grande do Sul - Instituto de Informática}
+\date{December 2025}
+
+\begin{document}
+
+\begin{frame}
+    \titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+    \tableofcontents
+\end{frame}
+
+\section{Introduction}
+
+\begin{frame}{Motivation}
+    \textbf{SDumont II} offers two allocation modes for GH200 nodes:
+    \begin{itemize}
+        \item \textbf{Exclusive queue}: Full node reserved for one job
+        \item \textbf{Shared queue}: SLURM GRES scheduling among jobs
+    \end{itemize}
+
+    \vspace{1em}
+    \textbf{Research questions:}
+    \begin{enumerate}
+        \item How does CPU-GPU bandwidth vary with NUMA affinity?
+        \item Does SLURM preserve NUMA locality in shared mode?
+    \end{enumerate}
+\end{frame}
+
+\begin{frame}{GH200 Node Architecture}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \textbf{Specifications:}
+        \begin{itemize}
+            \item 4x NVIDIA GH200 GPUs (120GB HBM3)
+            \item 288 ARM cores (72 per NUMA)
+            \item NVLink-C2C: 900 GB/s (local)
+            \item NVLink 4.0 between GPUs
+        \end{itemize}
+
+        \vspace{1em}
+        \textbf{NUMA affinity:}
+        \begin{itemize}
+            \item GPU 0 $\leftrightarrow$ NUMA 0
+            \item GPU 1 $\leftrightarrow$ NUMA 1
+            \item GPU 2 $\leftrightarrow$ NUMA 2
+            \item GPU 3 $\leftrightarrow$ NUMA 3
+        \end{itemize}
+
+        \column{0.5\textwidth}
+        \begin{center}
+            \includegraphics[width=\textwidth]{../paper/img/exclusive.png}
+        \end{center}
+    \end{columns}
+\end{frame}
+
+\section{Methodology}
+
+\begin{frame}{Experimental Setup}
+    \textbf{Tool:} nvbandwidth v0.6
+
+    \vspace{1em}
+    \textbf{Exclusive queue:}
+    \begin{itemize}
+        \item Pin process to each NUMA (0-3) with \texttt{numactl}
+        \item Measure bandwidth to all 4 GPUs
+        \item Result: 4$\times$4 bandwidth matrix
+    \end{itemize}
+
+    \vspace{1em}
+    \textbf{Shared queue:}
+    \begin{itemize}
+        \item Submit 4 concurrent jobs with 1 GPU each
+        \item Observe SLURM's NUMA-GPU mapping
+    \end{itemize}
+\end{frame}
+
+\section{Results}
+
+\begin{frame}{Host-to-Device Bandwidth}
+    \begin{center}
+        \includegraphics[width=0.8\textwidth]{../paper/img/bandwidth_heatmaps.png}
+    \end{center}
+
+    \begin{itemize}
+        \item \textbf{Local (diagonal):} 411.6 GB/s
+        \item \textbf{Remote (off-diagonal):} 88.6 GB/s
+        \item \textbf{Ratio:} \textcolor{red}{\textbf{4.65$\times$}}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{CPU-GPU Latency}
+    \begin{columns}
+        \column{0.5\textwidth}
+        \begin{center}
+            \includegraphics[width=\textwidth]{../paper/img/latency_heatmap.png}
+        \end{center}
+
+        \column{0.5\textwidth}
+        \begin{itemize}
+            \item Local: \textbf{739 ns}
+            \item Remote: \textbf{1109 ns}
+            \item Ratio: 1.5$\times$
+        \end{itemize}
+
+        \vspace{1em}
+        \begin{block}{Observation}
+            Remote access is bandwidth-limited, not latency-limited.
+        \end{block}
+    \end{columns}
+\end{frame}
+
+\begin{frame}{Exclusive vs Shared Queue}
+    \begin{center}
+        \includegraphics[width=0.65\textwidth]{../paper/img/bandwidth_comparison.png}
+    \end{center}
+
+    \begin{itemize}
+        \item Shared queue achieves $\sim$100\% of local bandwidth
+        \item SLURM preserves NUMA locality automatically
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Summary}
+    \begin{table}
+        \centering
+        \begin{tabular}{lc}
+            \toprule
+            \textbf{Metric} & \textbf{Value} \\
+            \midrule
+            H2D Bandwidth (Local) & 411.6 GB/s \\
+            H2D Bandwidth (Remote) & 88.6 GB/s \\
+            D2H Bandwidth (Local) & 169.4 GB/s \\
+            D2H Bandwidth (Remote) & 88.3 GB/s \\
+            \midrule
+            Local/Remote Ratio & \textbf{4.65$\times$} \\
+            \bottomrule
+        \end{tabular}
+    \end{table}
+\end{frame}
+
+\section{Conclusions}
+
+\begin{frame}{Conclusions}
+    \begin{enumerate}
+        \item \textbf{NUMA locality is critical:} 4.65$\times$ bandwidth difference
+
+        \vspace{0.5em}
+        \item \textbf{SLURM preserves locality:} Shared queue maintains CPU-GPU affinity
+
+        \vspace{0.5em}
+        \item \textbf{GPU-GPU is NUMA-independent:} NVLink unaffected by CPU placement
+    \end{enumerate}
+
+    \vspace{1.5em}
+    \begin{table}
+        \centering
+        \small
+        \begin{tabular}{ll}
+            \toprule
+            \textbf{Workload} & \textbf{Recommendation} \\
+            \midrule
+            Memory-bound & Exclusive queue \\
+            Compute-bound & Shared queue OK \\
+            Multi-GPU & Either queue \\
+            \bottomrule
+        \end{tabular}
+    \end{table}
+\end{frame}
+
+\begin{frame}{}
+    \begin{center}
+        \Large\textbf{Thank you!}
+
+        \vspace{1em}
+        \normalsize Questions?
+    \end{center}
+\end{frame}
+
+\end{document}
