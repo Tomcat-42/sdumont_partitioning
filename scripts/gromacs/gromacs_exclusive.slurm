@@ -2,29 +2,29 @@
 
 #SBATCH --job-name=gromacs_exclusive
 #SBATCH --partition=lncc-gh200
-#SBATCH --time=01:00:00
-# GROMACS Benchmark - Exclusive Queue with NUMA Pinning
-# Tests performance on each NUMA node (0-3) with its local GPU
+#SBATCH --time=02:00:00
+#SBATCH --output=gromacs_exclusive_%j.out
+#SBATCH --error=gromacs_exclusive_%j.err
 
-# Path configuration - use script directory as base
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# GROMACS Benchmark - Exclusive Queue
+# Tests GPU scaling: 1, 2, and 4 GPUs
+
+# Path configuration - use SLURM_SUBMIT_DIR (where sbatch was called)
+SCRIPT_DIR="$SLURM_SUBMIT_DIR"
 export BASE_PATH="$(dirname "$(dirname "$SCRIPT_DIR")")"
 export ASSETS_PATH="$SCRIPT_DIR/assets"
 export BENCH_TARBALL="$ASSETS_PATH/GROMACS_heterogeneous_parallelization_benchmark_info_and_systems_JCP.tar.gz"
 export BENCH_DIR="$ASSETS_PATH/GROMACS_heterogeneous_parallelization_benchmark_info_and_systems_JCP/stmv"
 export RESULTS_DIR="$BASE_PATH/data/gromacs"
-export LOGS_DIR="$RESULTS_DIR/logs"
 
-# Create directories
-mkdir -p "$RESULTS_DIR" "$LOGS_DIR"
-
-# Redirect SLURM output to logs directory
-exec > "$LOGS_DIR/gromacs_exclusive_${SLURM_JOB_ID}.out" 2> "$LOGS_DIR/gromacs_exclusive_${SLURM_JOB_ID}.err"
+# Create results directory
+mkdir -p "$RESULTS_DIR"
 
 echo "=== GROMACS Exclusive Queue Benchmark ==="
 echo "Job ID: $SLURM_JOB_ID"
 echo "Node: $SLURM_JOB_NODELIST"
-nodeset -e "$SLURM_JOB_NODELIST"
+echo "SLURM_SUBMIT_DIR: $SLURM_SUBMIT_DIR"
+echo "ASSETS_PATH: $ASSETS_PATH"
 echo "Start time: $(date)"
 echo ""
 
@@ -33,7 +33,6 @@ NSTEPS=100000
 RESETSTEP=90000
 
 # Extract benchmark if not already done
-mkdir -p "$ASSETS_PATH"
 if [ ! -d "$BENCH_DIR" ]; then
     if [ -f "$BENCH_TARBALL" ]; then
         echo "Extracting benchmark from local tarball..."
@@ -55,50 +54,60 @@ module load gromacs/2023.2_nv_container
 export GMX_ENABLE_DIRECT_GPU_COMM=1
 SINGULARITY="singularity run --nv -B ${PWD}:/host_pwd --pwd /host_pwd $GMX_IMAGE"
 
-# Directories already created above
+# GPU configurations to test: (num_gpus, ntmpi, ntomp, gpu_ids)
+# Total cores = 288, divided equally among GPUs
+GPU_CONFIGS=(
+    "1 1 72 0"
+    "2 2 72 0,1"
+    "4 4 72 0,1,2,3"
+)
 
-# Test each NUMA node with its corresponding GPU
-NUMA_NODES=(0 1 2 3)
+for config in "${GPU_CONFIGS[@]}"; do
+    read -r num_gpus ntmpi ntomp gpu_ids <<< "$config"
 
-for numa in "${NUMA_NODES[@]}"; do
     echo ""
-    echo "=== Running GROMACS on NUMA $numa with GPU $numa ==="
+    echo "========================================"
+    echo "=== Running GROMACS with $num_gpus GPU(s) ==="
+    echo "========================================"
+    echo "Configuration: ntmpi=$ntmpi, ntomp=$ntomp, gpu_ids=$gpu_ids"
 
-    OUTPUT_FILE="${RESULTS_DIR}/exclusive_numa${numa}_${SLURM_JOB_ID}.log"
+    OUTPUT_FILE="${RESULTS_DIR}/exclusive_${num_gpus}gpu_${SLURM_JOB_ID}.log"
 
-    numactl --cpunodebind="$numa" --membind="$numa" bash -c "
-        export CUDA_VISIBLE_DEVICES=$numa
-        export OMP_NUM_THREADS=72
+    export CUDA_VISIBLE_DEVICES="$gpu_ids"
+    export OMP_NUM_THREADS=$ntomp
 
-        echo '=== Environment ==='
-        echo 'NUMA Node: $numa'
-        echo 'GPU: '\$CUDA_VISIBLE_DEVICES
-        echo 'OMP_NUM_THREADS: '\$OMP_NUM_THREADS
-        numactl --show
-        echo ''
+    echo "=== Environment ==="
+    echo "CUDA_VISIBLE_DEVICES: $CUDA_VISIBLE_DEVICES"
+    echo "OMP_NUM_THREADS: $OMP_NUM_THREADS"
+    echo ""
 
-        echo '=== GPU Info ==='
-        nvidia-smi -i \$CUDA_VISIBLE_DEVICES --query-gpu=name,memory.total,pci.bus_id --format=csv
-        echo ''
+    echo "=== GPU Info ==="
+    nvidia-smi --query-gpu=index,name,memory.total,pci.bus_id --format=csv
+    echo ""
 
-        echo '=== Running GROMACS mdrun ==='
-        $SINGULARITY gmx mdrun \
-            -ntmpi 1 \
-            -ntomp 72 \
-            -pin on \
-            -pinoffset 0 \
-            -nb gpu \
-            -bonded gpu \
-            -pme gpu \
-            -v \
-            -s topol.tpr \
-            -deffnm stmv_numa${numa} \
-            -nsteps $NSTEPS \
-            -resetstep $RESETSTEP \
-            -noconfout \
-            -dlb no \
-            -nstlist 300
-    " 2>&1 | tee "$OUTPUT_FILE"
+    echo "=== Running GROMACS mdrun ==="
+    # Build command - only use -npme 1 when ntmpi >= 2
+    NPME_OPT=""
+    if [ "$ntmpi" -ge 2 ]; then
+        NPME_OPT="-npme 1"
+    fi
+
+    $SINGULARITY gmx mdrun \
+        -ntmpi $ntmpi \
+        -ntomp $ntomp \
+        -pin on \
+        -nb gpu \
+        -bonded gpu \
+        -pme gpu \
+        $NPME_OPT \
+        -v \
+        -s topol.tpr \
+        -deffnm "stmv_${num_gpus}gpu" \
+        -nsteps $NSTEPS \
+        -resetstep $RESETSTEP \
+        -noconfout \
+        -dlb no \
+        -nstlist 300 2>&1 | tee "$OUTPUT_FILE"
 
     echo "Results saved to: $OUTPUT_FILE"
 done
@@ -106,3 +115,10 @@ done
 echo ""
 echo "=== All GROMACS benchmarks completed ==="
 echo "End time: $(date)"
+
+# Copy SLURM output to logs directory
+LOGS_DIR="$BASE_PATH/data/gromacs/logs"
+mkdir -p "$LOGS_DIR"
+cp "$SLURM_SUBMIT_DIR/gromacs_exclusive_${SLURM_JOB_ID}.out" "$LOGS_DIR/" 2>/dev/null
+cp "$SLURM_SUBMIT_DIR/gromacs_exclusive_${SLURM_JOB_ID}.err" "$LOGS_DIR/" 2>/dev/null
+echo "Logs copied to: $LOGS_DIR"
