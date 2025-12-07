@@ -7,13 +7,26 @@
 #SBATCH --cpus-per-task=72
 #SBATCH --gpus-per-node=1
 #SBATCH --time=00:30:00
-#SBATCH --output=gromacs_shared_%A_%a.out
-#SBATCH --error=gromacs_shared_%A_%a.err
 #SBATCH --array=0-3
 
 # GROMACS Benchmark - Shared Queue
 # Runs 4 jobs in parallel, each with 1 GPU allocated by SLURM
 # SLURM automatically handles NUMA affinity in shared mode
+
+# Path configuration - use script directory as base
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+export BASE_PATH="$(dirname "$(dirname "$SCRIPT_DIR")")"
+export ASSETS_PATH="$SCRIPT_DIR/assets"
+export BENCH_TARBALL="$ASSETS_PATH/GROMACS_heterogeneous_parallelization_benchmark_info_and_systems_JCP.tar.gz"
+export BENCH_DIR="$ASSETS_PATH/GROMACS_heterogeneous_parallelization_benchmark_info_and_systems_JCP/stmv"
+export RESULTS_DIR="$BASE_PATH/data/gromacs"
+export LOGS_DIR="$RESULTS_DIR/logs"
+
+# Create directories
+mkdir -p "$RESULTS_DIR" "$LOGS_DIR"
+
+# Redirect SLURM output to logs directory
+exec > "$LOGS_DIR/gromacs_shared_${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}.out" 2> "$LOGS_DIR/gromacs_shared_${SLURM_ARRAY_JOB_ID}_${SLURM_ARRAY_TASK_ID}.err"
 
 echo "=== GROMACS Shared Queue Benchmark ==="
 echo "Job ID: $SLURM_JOB_ID"
@@ -22,13 +35,6 @@ echo "Node: $SLURM_JOB_NODELIST"
 nodeset -e "$SLURM_JOB_NODELIST"
 echo "Start time: $(date)"
 echo ""
-
-# Path configuration
-export BASE_PATH="$SLURM_SUBMIT_DIR"
-export ASSETS_PATH="$BASE_PATH/assets"
-export BENCH_TARBALL="$ASSETS_PATH/GROMACS_heterogeneous_parallelization_benchmark_info_and_systems_JCP.tar.gz"
-export BENCH_DIR="$ASSETS_PATH/GROMACS_heterogeneous_parallelization_benchmark_info_and_systems_JCP/stmv"
-export RESULTS_DIR="$BASE_PATH/../../data/gromacs"
 
 # Benchmark configuration
 NSTEPS=100000
@@ -58,8 +64,7 @@ export GMX_ENABLE_DIRECT_GPU_COMM=1
 export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
 SINGULARITY="singularity run --nv -B ${PWD}:/host_pwd --pwd /host_pwd $GMX_IMAGE"
 
-# Create results directory
-mkdir -p "$RESULTS_DIR"
+# Directories already created above
 
 OUTPUT_FILE="${RESULTS_DIR}/shared_task${SLURM_ARRAY_TASK_ID}_${SLURM_JOB_ID}.log"
 

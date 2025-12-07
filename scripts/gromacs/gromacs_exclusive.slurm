@@ -3,11 +3,23 @@
 #SBATCH --job-name=gromacs_exclusive
 #SBATCH --partition=lncc-gh200
 #SBATCH --time=01:00:00
-#SBATCH --output=gromacs_exclusive_%j.out
-#SBATCH --error=gromacs_exclusive_%j.err
-
 # GROMACS Benchmark - Exclusive Queue with NUMA Pinning
 # Tests performance on each NUMA node (0-3) with its local GPU
+
+# Path configuration - use script directory as base
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+export BASE_PATH="$(dirname "$(dirname "$SCRIPT_DIR")")"
+export ASSETS_PATH="$SCRIPT_DIR/assets"
+export BENCH_TARBALL="$ASSETS_PATH/GROMACS_heterogeneous_parallelization_benchmark_info_and_systems_JCP.tar.gz"
+export BENCH_DIR="$ASSETS_PATH/GROMACS_heterogeneous_parallelization_benchmark_info_and_systems_JCP/stmv"
+export RESULTS_DIR="$BASE_PATH/data/gromacs"
+export LOGS_DIR="$RESULTS_DIR/logs"
+
+# Create directories
+mkdir -p "$RESULTS_DIR" "$LOGS_DIR"
+
+# Redirect SLURM output to logs directory
+exec > "$LOGS_DIR/gromacs_exclusive_${SLURM_JOB_ID}.out" 2> "$LOGS_DIR/gromacs_exclusive_${SLURM_JOB_ID}.err"
 
 echo "=== GROMACS Exclusive Queue Benchmark ==="
 echo "Job ID: $SLURM_JOB_ID"
@@ -15,13 +27,6 @@ echo "Node: $SLURM_JOB_NODELIST"
 nodeset -e "$SLURM_JOB_NODELIST"
 echo "Start time: $(date)"
 echo ""
-
-# Path configuration
-export BASE_PATH="$SLURM_SUBMIT_DIR"
-export ASSETS_PATH="$BASE_PATH/assets"
-export BENCH_TARBALL="$ASSETS_PATH/GROMACS_heterogeneous_parallelization_benchmark_info_and_systems_JCP.tar.gz"
-export BENCH_DIR="$ASSETS_PATH/GROMACS_heterogeneous_parallelization_benchmark_info_and_systems_JCP/stmv"
-export RESULTS_DIR="$BASE_PATH/../../data/gromacs"
 
 # Benchmark configuration
 NSTEPS=100000
@@ -50,8 +55,7 @@ module load gromacs/2023.2_nv_container
 export GMX_ENABLE_DIRECT_GPU_COMM=1
 SINGULARITY="singularity run --nv -B ${PWD}:/host_pwd --pwd /host_pwd $GMX_IMAGE"
 
-# Create results directory
-mkdir -p "$RESULTS_DIR"
+# Directories already created above
 
 # Test each NUMA node with its corresponding GPU
 NUMA_NODES=(0 1 2 3)
