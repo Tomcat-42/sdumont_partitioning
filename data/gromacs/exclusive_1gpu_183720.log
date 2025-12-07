@@ -1,0 +1,23 @@
+     :-) GROMACS - gmx mdrun, 2023.2-dev-20230712-a3d6917-dirty-unknown (-:
+
+Executable:   /usr/local/gromacs/arm_neon_asimd/bin/gmx
+Data prefix:  /usr/local/gromacs/arm_neon_asimd
+Working dir:  /host_pwd
+Command line:
+  gmx mdrun -ntmpi 1 -ntomp 72 -pin on -nb gpu -bonded gpu -pme gpu -npme 1 -v -s topol.tpr -deffnm stmv_1gpu -nsteps 100000 -resetstep 90000 -noconfout -dlb no -nstlist 300
+
+Compiled SIMD is ARM_NEON_ASIMD, but ARM_SVE might be faster (see log).
+Reading file topol.tpr, VERSION 2020 (single precision)
+Note: file tpx version 119, software tpx version 129
+
+-------------------------------------------------------
+Program:     gmx mdrun, version 2023.2-dev-20230712-a3d6917-dirty-unknown
+Source file: src/gromacs/mdrun/runner.cpp (line 1189)
+
+Fatal error:
+The -dd or -npme option request a parallel simulation, but the number of
+MPI-threads (option -ntmpi) is not set or is 1
+
+For more information and tips for troubleshooting, please check the GROMACS
+website at http://www.gromacs.org/Documentation/Errors
+-------------------------------------------------------

@@ -28,17 +28,17 @@
 \section{Introduction}
 
 \begin{frame}{Motivation}
-    \textbf{SDumont II} offers two allocation modes for GH200 nodes:
+    \textbf{SDumont II} GH200 node allocation modes:
     \begin{itemize}
-        \item \textbf{Exclusive queue}: Full node reserved for one job
-        \item \textbf{Shared queue}: SLURM GRES scheduling among jobs
+        \item \textbf{Exclusive}: Full node for one job
+        \item \textbf{Shared}: SLURM GRES partitions resources
     \end{itemize}
 
     \vspace{1em}
-    \textbf{Research questions:}
+    \textbf{Questions:}
     \begin{enumerate}
-        \item How does CPU-GPU bandwidth vary with NUMA affinity?
-        \item Does SLURM preserve NUMA locality in shared mode?
+        \item How does bandwidth vary with NUMA affinity?
+        \item Does SLURM preserve locality in shared mode?
     \end{enumerate}
 \end{frame}
 
@@ -117,11 +117,6 @@
             \item Remote: \textbf{1109 ns}
             \item Ratio: 1.5$\times$
         \end{itemize}
-
-        \vspace{1em}
-        \begin{block}{Observation}
-            Remote access is bandwidth-limited, not latency-limited.
-        \end{block}
     \end{columns}
 \end{frame}
 
@@ -133,6 +128,41 @@
     \begin{itemize}
         \item Shared queue achieves $\sim$100\% of local bandwidth
         \item SLURM preserves NUMA locality automatically
+    \end{itemize}
+\end{frame}
+
+\section{Application Validation}
+
+\begin{frame}{GROMACS Benchmark}
+    \textbf{Setup:} GROMACS 2023.2, STMV ($\sim$1M atoms), GPU offload: nb, bonded, pme
+
+    \vspace{0.5em}
+    \begin{table}
+        \centering
+        \begin{tabular}{llcc}
+            \toprule
+            \textbf{Queue} & \textbf{GPUs} & \textbf{ns/day} & \textbf{Scaling} \\
+            \midrule
+            Exclusive & 1 & 43.45 & 1.00$\times$ \\
+            Exclusive & 2 & 42.25 & 0.97$\times$ \\
+            Exclusive & 4 & 108.75 & \textbf{2.50$\times$} \\
+            \midrule
+            Shared & 1 & 43.45 & 1.00$\times$ \\
+            Shared & 2 & 42.28 & 0.97$\times$ \\
+            \bottomrule
+        \end{tabular}
+    \end{table}
+\end{frame}
+
+\begin{frame}{GROMACS GPU Scaling}
+    \begin{center}
+        \includegraphics[width=0.75\textwidth]{../paper/img/gromacs_scaling.png}
+    \end{center}
+
+    \begin{itemize}
+        \item \textbf{1-GPU:} Same performance in both queues
+        \item \textbf{2-GPU:} No scaling benefit
+        \item \textbf{4-GPU:} 2.5$\times$ speedup
     \end{itemize}
 \end{frame}
 
@@ -157,30 +187,25 @@
 \section{Conclusions}
 
 \begin{frame}{Conclusions}
-    \begin{enumerate}
-        \item \textbf{NUMA locality is critical:} 4.65$\times$ bandwidth difference
+    \textbf{Bandwidth:}
+    \begin{itemize}
+        \item Local: 411 GB/s | Remote: 88 GB/s (4.6$\times$ difference)
+        \item Shared queue maintained NUMA locality
+    \end{itemize}
 
-        \vspace{0.5em}
-        \item \textbf{SLURM preserves locality:} Shared queue maintains CPU-GPU affinity
+    \vspace{0.5em}
+    \textbf{GROMACS (STMV):}
+    \begin{itemize}
+        \item Single-GPU: Same performance in both queues
+        \item 4-GPU: 2.5$\times$ speedup | 2-GPU: No benefit
+    \end{itemize}
 
-        \vspace{0.5em}
-        \item \textbf{GPU-GPU is NUMA-independent:} NVLink unaffected by CPU placement
-    \end{enumerate}
-
-    \vspace{1.5em}
-    \begin{table}
-        \centering
-        \small
-        \begin{tabular}{ll}
-            \toprule
-            \textbf{Workload} & \textbf{Recommendation} \\
-            \midrule
-            Memory-bound & Exclusive queue \\
-            Compute-bound & Shared queue OK \\
-            Multi-GPU & Either queue \\
-            \bottomrule
-        \end{tabular}
-    \end{table}
+    \vspace{0.5em}
+    \textbf{Guidance:}
+    \begin{itemize}
+        \item Single-GPU jobs: Shared queue has no penalty
+        \item Multi-GPU GROMACS (STMV): Use 1 or 4 GPUs
+    \end{itemize}
 \end{frame}
 
 \begin{frame}{}
